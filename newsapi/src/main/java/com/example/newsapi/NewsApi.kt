@@ -1,9 +1,9 @@
 package com.example.newsapi
 
 import androidx.annotation.IntRange
-import com.example.newsapi.models.Article
-import com.example.newsapi.models.Language
-import com.example.newsapi.models.Response
+import com.example.newsapi.models.ArticleDTO
+import com.example.newsapi.models.LanguageDTO
+import com.example.newsapi.models.ResponseDTO
 import com.example.newsapi.models.SortBy
 import com.example.newsapi.utils.NewsApiKeyInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -26,12 +26,12 @@ interface NewsApi {
             @Query("q") query: String? = null,
             @Query("from") from: Date? = null,
             @Query("to") to: Date? = null,
-            @Query("languages") languages: List<Language>? = null,
+            @Query("languages") languages: List<LanguageDTO>? = null,
             @Query("sortBy") sortBy: SortBy? = null,
             @Query("pageSize") @IntRange(from =  0, to = 100) pageSize: Int = 100,
             @Query("page") @IntRange(from = 1) page: Int = 1
 
-        ): Result<Response<Article>>
+        ): Result<ResponseDTO<ArticleDTO>>
 
 }
 

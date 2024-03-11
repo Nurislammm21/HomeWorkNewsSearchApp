@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.ksp)
-
 }
 
 android {
-    namespace = "com.example.database"
+    namespace = "com.example.news.main"
     compileSdk = 34
 
     defaultConfig {
@@ -37,8 +35,9 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
-
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

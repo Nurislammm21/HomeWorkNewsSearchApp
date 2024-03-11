@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class  Language{
+enum class  LanguageDTO{
     @SerialName("ar")
     AR,
     @SerialName("de")
