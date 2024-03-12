@@ -28,7 +28,7 @@ data class ArticleDBO(
     val content: String
 )
 
-@Entity
+
 data class Source(
     @ColumnInfo("id")
     val id: String,
