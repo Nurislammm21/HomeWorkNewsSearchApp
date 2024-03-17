@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.onEach
 class ArticleRepository(
     private val database: NewsDatabase,
     private val api: NewsApi,
-    private val requestResponseMergeStrategy: RequestResponseMergeStrategy<List<Article>>,
+    private val requestResponseMergeStrategy: MergeStrategy<RequestResult<List<Article>>>,
 ) {
         fun getAll(): Flow<RequestResult<List<Article>>> {
            val cachedAllArticles: Flow<RequestResult<List<Article>>> = getAllFromDatabase()
