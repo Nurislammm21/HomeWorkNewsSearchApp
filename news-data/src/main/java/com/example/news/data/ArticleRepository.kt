@@ -7,7 +7,9 @@ import com.example.newsapi.NewsApi
 import com.example.newsapi.models.ArticleDTO
 import com.example.newsapi.models.ResponseDTO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -20,7 +22,6 @@ class ArticleRepository(
     private val api: NewsApi,
 ) {
         fun getAll(
-
             mergeStrategy: MergeStrategy<RequestResult<List<Article>>> = RequestResponseMergeStrategy(),
         ): Flow<RequestResult<List<Article>>> {
            val cachedAllArticles: Flow<RequestResult<List<Article>>> = getAllFromDatabase()
@@ -36,6 +37,15 @@ class ArticleRepository(
                     }
                 }
               return cachedAllArticles.combine(remoteArticles,mergeStrategy::merge)
+                  .flatMapLatest { result ->
+                      if(result is RequestResult.Success){
+                          database.articleDao.observeAll()
+                              .map { dbos -> dbos.map { it.toArticle() } }
+                              .map { RequestResult.Success(it) }
+                      }else{
+                          flowOf(result)
+                      }
+                  }
 
         }
 
@@ -57,8 +67,8 @@ class ArticleRepository(
     }
 
     private fun getAllFromDatabase(): Flow<RequestResult<List<ArticleDBO>>>{
-        val dbRequest: Flow<RequestResult<List<ArticleDBO>>> = database.articleDao
-            .getAll().map { RequestResult.Success(it) }
+        val dbRequest= database.articleDao::getAll.asFlow()
+            .map { RequestResult.Success(it) }
         val start = flowOf<RequestResult<List<ArticleDBO>>>(RequestResult.InProgress())
         return merge(start,dbRequest)
     }
