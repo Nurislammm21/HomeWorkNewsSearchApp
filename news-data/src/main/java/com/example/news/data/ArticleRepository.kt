@@ -1,4 +1,5 @@
 package com.example.news.data
+import android.annotation.SuppressLint
 import com.example.database.NewsDatabase
 import com.example.database.models.ArticleDBO
 import com.example.news.data.model.Article
@@ -21,6 +22,7 @@ class ArticleRepository @Inject constructor(
     private val database: NewsDatabase,
     private val api: NewsApi,
 ) {
+        @SuppressLint("SuspiciousIndentation")
         fun getAll(
             mergeStrategy: MergeStrategy<RequestResult<List<Article>>> = RequestResponseMergeStrategy(),
         ): Flow<RequestResult<List<Article>>> {

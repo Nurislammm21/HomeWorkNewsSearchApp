@@ -29,7 +29,7 @@ val state: StateFlow<State> = getAllArticlesUseCase.get().invoke()
         return when(this){
             is RequestResult.Error -> State.Error()
             is RequestResult.InProgress -> State.Loading(data)
-            is RequestResult.Success -> State.Success(checkNotNull(data))
+            is RequestResult.Success -> State.Success(data)
         }
     }
 
@@ -38,13 +38,9 @@ val state: StateFlow<State> = getAllArticlesUseCase.get().invoke()
 
 
 sealed class State{
-
-    object None : State()
-
+   data object None : State()
     class Loading(val articles : List<Article>? = null) : State()
-
     class Error(val articles : List<Article>? = null) : State()
-
     class Success(val articles : List<Article>) : State()
 
 }
