@@ -68,7 +68,7 @@ dagger-hilt-android = {module = "com.google.dagger:hilt-android", version.ref = 
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger"}
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger"}
 dagger-main = { module = "com.google.dagger:dagger", version.ref = "dagger"}
-jakarta-inject = {module = "jakarta.inject:jakarta-api",version.ref = "jakarta-inject"}
+jakarta-inject = {module = "jakarta.inject:jakarta.inject-api",version.ref = "jakarta-inject"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

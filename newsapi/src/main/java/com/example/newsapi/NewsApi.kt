@@ -14,7 +14,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.create
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Query
 import java.util.Date
 
@@ -35,7 +34,7 @@ interface NewsApi {
 }
 
 
-fun newsApi(
+fun NewsApi(
     baseUrl: String,
     apiKey: String,
     okHttpClient: OkHttpClient? = null,

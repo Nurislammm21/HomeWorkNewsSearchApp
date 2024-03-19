@@ -10,8 +10,8 @@ import com.example.database.dao.ArticleDao
 import com.example.database.models.ArticleDBO
 import com.example.database.utils.Converters
 
-class NewsDatabase internal constructor(private val database: NewsRoomDatabase){
-    val articleDao: ArticleDao
+class NewsDatabase internal constructor (private val database: NewsRoomDatabase) {
+    val articlesDao : ArticleDao
         get() = database.articlesDao()
 }
 
@@ -19,19 +19,13 @@ class NewsDatabase internal constructor(private val database: NewsRoomDatabase){
 @TypeConverters(Converters::class)
 internal abstract class NewsRoomDatabase : RoomDatabase() {
     abstract fun articlesDao(): ArticleDao
+}
 
-
-
-
-    fun NewsDatabase(applicationContext: Context): NewsDatabase{
-        val newsRoomDatabase = Room.databaseBuilder(
-            checkNotNull(applicationContext.applicationContext),
-            NewsRoomDatabase::class.java,"news"
-
-        ).build()
-
-        return NewsDatabase(newsRoomDatabase)
-    }
-
-
+fun NewsDatabase(applicationContext: Context): NewsDatabase {
+    val newsRoomDatabase = Room.databaseBuilder(
+        checkNotNull(applicationContext.applicationContext),
+        NewsRoomDatabase::class.java,
+        "news"
+    ).build()
+    return  NewsDatabase(newsRoomDatabase)
 }

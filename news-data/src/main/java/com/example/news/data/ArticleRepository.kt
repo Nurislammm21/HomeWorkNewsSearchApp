@@ -1,11 +1,11 @@
 package com.example.news.data
-
 import com.example.database.NewsDatabase
 import com.example.database.models.ArticleDBO
 import com.example.news.data.model.Article
 import com.example.newsapi.NewsApi
 import com.example.newsapi.models.ArticleDTO
 import com.example.newsapi.models.ResponseDTO
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.combine
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 
 
-class ArticleRepository(
+class ArticleRepository @Inject constructor(
     private val database: NewsDatabase,
     private val api: NewsApi,
 ) {
@@ -31,7 +31,7 @@ class ArticleRepository(
               return cachedAllArticles.combine(remoteArticles,mergeStrategy::merge)
                   .flatMapLatest { result ->
                       if(result is RequestResult.Success){
-                          database.articleDao.observeAll()
+                          database.articlesDao.observeAll()
                               .map { dbos -> dbos.map { it.toArticle() } }
                               .map { RequestResult.Success(it) }
                       }else{
@@ -60,11 +60,11 @@ class ArticleRepository(
 
     private suspend fun saveNetResponseToCache(data: List<ArticleDTO>){
         val dbos = data.map { articleDto ->  articleDto.toArticleDbo() }
-        database.articleDao.insert(dbos)
+        database.articlesDao.insert(dbos)
     }
 
     private fun getAllFromDatabase(): Flow<RequestResult<List<Article>>>{
-        val dbRequest= database.articleDao::getAll.asFlow()
+        val dbRequest= database.articlesDao::getAll.asFlow()
             .map { RequestResult.Success(it) }
         val start = flowOf<RequestResult<List<ArticleDBO>>>(RequestResult.InProgress())
         return merge(start,dbRequest).map { result ->
