@@ -1,6 +1,7 @@
 package com.example.newssearchapphometask3
 
 import android.content.Context
+import com.example.common.AppDispatchers
 import com.example.database.NewsDatabase
 import com.example.news.data.ArticleRepository
 import com.example.newsapi.NewsApi
@@ -34,6 +35,10 @@ object AppModule{
  fun provideNewsDatabase(@ApplicationContext context: Context): NewsDatabase{
      return NewsDatabase(context)
  }
+
+ @Provides
+ @Singleton
+ fun provideAppCoroutineDispatchers(): AppDispatchers = AppDispatchers()
 
 
 

@@ -76,6 +76,8 @@ dependencies {
     implementation(project(":news-data"))
     implementation(project(":newsapi"))
     implementation(project(":database"))
+    implementation(project(":news-common"))
+
 
 
 }
