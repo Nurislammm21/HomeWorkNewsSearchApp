@@ -10,7 +10,7 @@ import java.util.Date
 data class ArticleDBO(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    @Embedded(prefix = "source.")
+    @Embedded(prefix = "source-")
     val source: Source,
     @ColumnInfo("author")
     val author: String,

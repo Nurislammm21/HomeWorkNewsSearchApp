@@ -8,16 +8,13 @@ package com.example.news.data
 internal class RequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult<T>>{
     override fun merge(right: RequestResult<T>, left: RequestResult<T>): RequestResult<T> {
         return when{
-            right is RequestResult.InProgress && left is RequestResult.InProgress ->
-               merge(right,left)
-            right is RequestResult.Success && left is RequestResult.InProgress ->
-                merge(right,left)
-            right is RequestResult.InProgress && left is RequestResult.Success ->
-                merge(right,left)
-            right is RequestResult.Success && left is RequestResult.Error ->
-                merge(right,left)
+            right is RequestResult.InProgress && left is RequestResult.InProgress -> merge(right,left)
+            right is RequestResult.Success && left is RequestResult.InProgress -> merge(right,left)
+            right is RequestResult.InProgress && left is RequestResult.Success -> merge(right,left)
+            right is RequestResult.Success && left is RequestResult.Error -> merge(right,left)
+            right is RequestResult.InProgress && left is RequestResult.Error -> merge(right,left)
 
-            else -> error("Unimplemented branch")
+            else -> error("Unimplemented branch right = $right & left = $left ")
         }
     }
     private fun merge(
@@ -52,4 +49,12 @@ internal class RequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult
     ): RequestResult<T>{
         return RequestResult.Error(data = cache.data,error = server.error)
     }
+
+    private fun merge(
+        cache: RequestResult.InProgress<T>,
+        server: RequestResult.Error<T>
+    ): RequestResult<T>{
+        return RequestResult.Error(data = server.data ?: cache.data, error = server.error)
+    }
+
 }

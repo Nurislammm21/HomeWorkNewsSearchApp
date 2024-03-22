@@ -22,5 +22,11 @@ internal class GetAllArticlesUseCase @Inject constructor(
 }
 
 private fun DataArticle.toUiArticle() : ArticleUI{
-    TODO("Not implemented")
+    return ArticleUI(
+        id = cacheId,
+        title = title,
+        description = description,
+        imageUrl = urlToImage,
+        url = url
+    )
 }
