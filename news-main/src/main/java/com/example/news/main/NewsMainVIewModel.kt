@@ -25,7 +25,7 @@ val state: StateFlow<State> = getAllArticlesUseCase.get().invoke()
     }
 
 
-    private fun RequestResult<List<Article>>.toState(): State{
+    private fun RequestResult<List<ArticleUI>>.toState(): State{
         return when(this){
             is RequestResult.Error -> State.Error()
             is RequestResult.InProgress -> State.Loading(data)
@@ -37,10 +37,10 @@ val state: StateFlow<State> = getAllArticlesUseCase.get().invoke()
 
 
 
-sealed class State{
+internal sealed class State{
    data object None : State()
-    class Loading(val articles : List<Article>? = null) : State()
-    class Error(val articles : List<Article>? = null) : State()
-    class Success(val articles : List<Article>) : State()
+    class Loading(val articles : List<ArticleUI>? = null) : State()
+    class Error(val articles : List<ArticleUI>? = null) : State()
+    class Success(val articles : List<ArticleUI>) : State()
 
 }
