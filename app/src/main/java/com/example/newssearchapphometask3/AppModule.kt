@@ -1,7 +1,9 @@
 package com.example.newssearchapphometask3
 
 import android.content.Context
+import com.example.common.AndroidLogcatLogger
 import com.example.common.AppDispatchers
+import com.example.common.Logger
 import com.example.database.NewsDatabase
 import com.example.news.data.ArticleRepository
 import com.example.newsapi.NewsApi
@@ -41,5 +43,7 @@ object AppModule{
  fun provideAppCoroutineDispatchers(): AppDispatchers = AppDispatchers()
 
 
+    @Provides
+    fun provideLogger() : Logger = AndroidLogcatLogger()
 
 }
