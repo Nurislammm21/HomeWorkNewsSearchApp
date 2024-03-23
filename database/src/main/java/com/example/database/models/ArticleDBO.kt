@@ -8,8 +8,6 @@ import java.util.Date
 
 @Entity(tableName = "articles")
 data class ArticleDBO(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
     @Embedded(prefix = "source-")
     val source: Source,
     @ColumnInfo("author")
@@ -21,11 +19,13 @@ data class ArticleDBO(
     @ColumnInfo("url")
     val url: String,
     @ColumnInfo("urlToImage")
-    val urlToImage: String,
+    val urlToImage: String?,
     @ColumnInfo("publishedAt")
     val publishedAt: Date,
     @ColumnInfo("content")
-    val content: String
+    val content: String,
+     @PrimaryKey(autoGenerate = true)
+    val id: Long,
 )
 
 

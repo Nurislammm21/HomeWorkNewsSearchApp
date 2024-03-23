@@ -13,8 +13,8 @@ internal class GetAllArticlesUseCase @Inject constructor(
 
 ) {
 
-    operator fun invoke(): Flow<RequestResult<List<ArticleUI>>> {
-       return repository.getAll()
+    operator fun invoke(query: String): Flow<RequestResult<List<ArticleUI>>> {
+       return repository.getAll(query)
             .map { requestResult ->
                 requestResult.map { articles -> articles.map { it.toUiArticle() } }
             }

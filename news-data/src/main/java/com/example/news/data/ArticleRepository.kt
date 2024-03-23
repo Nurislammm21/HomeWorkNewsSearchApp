@@ -27,11 +27,11 @@ class ArticleRepository @Inject constructor(
 ) {
         @SuppressLint("SuspiciousIndentation")
         fun getAll(
+            query: String,
             mergeStrategy: MergeStrategy<RequestResult<List<Article>>> = RequestResponseMergeStrategy(),
         ): Flow<RequestResult<List<Article>>> {
            val cachedAllArticles: Flow<RequestResult<List<Article>>> = getAllFromDatabase()
-
-            val remoteArticles = getAllFromServer()
+            val remoteArticles: Flow<RequestResult<List<Article>>> = getAllFromServer(query)
 
               return cachedAllArticles.combine(remoteArticles,mergeStrategy::merge)
                   .flatMapLatest { result ->
@@ -46,8 +46,8 @@ class ArticleRepository @Inject constructor(
 
         }
 
-    private fun getAllFromServer(): Flow<RequestResult<List<Article>>>{
-      val apiRequest = flow{emit(api.everything())}
+    private fun getAllFromServer(query: String): Flow<RequestResult<List<Article>>>{
+      val apiRequest = flow{emit(api.everything(query))}
           .onEach { result ->
               if(result.isSuccess) saveNetResponseToCache(result.getOrThrow().articles)
           }

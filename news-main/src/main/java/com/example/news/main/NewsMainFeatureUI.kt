@@ -105,13 +105,17 @@ internal fun NewsEmpty() {
     @PreviewParameter(ArticlePreviewProvider::class, limit = 1)article: ArticleUI,
  ) {
 Column(modifier = Modifier.padding(8.dp)){
-    Text(text = article.title, style = MaterialTheme.typography.headlineMedium, maxLines = 1)
-    Spacer(modifier = Modifier.size(4.dp))
-    Text(text = article.description, style = MaterialTheme.typography.bodyMedium, maxLines = 3)
+    Text(
+        text = article.title ?: "No TITLE",
+        style = MaterialTheme.typography.headlineMedium,
+        maxLines = 1)
+       Spacer(modifier = Modifier.size(4.dp))
+       Text(text = article.description, style = MaterialTheme.typography.bodyMedium, maxLines = 3)
+   }
 }
 
 
- }
+
 
 private class ArticlePreviewProvider: PreviewParameterProvider<ArticleUI>{
     override val values = sequenceOf(

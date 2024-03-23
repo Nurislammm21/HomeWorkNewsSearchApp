@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SourceDTO (
   @SerialName("id")
-  val id: String,
+  val id: String?,
   @SerialName("name")
-  val name: String
+  val name: String?
  )
