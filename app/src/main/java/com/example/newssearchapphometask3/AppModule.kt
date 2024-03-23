@@ -5,13 +5,14 @@ import com.example.common.AndroidLogcatLogger
 import com.example.common.AppDispatchers
 import com.example.common.Logger
 import com.example.database.NewsDatabase
-import com.example.news.data.ArticleRepository
 import com.example.newsapi.NewsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
 
@@ -19,13 +20,25 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule{
 
+    @Provides
+    @Singleton
+    fun provideHttpClient(): OkHttpClient?{
+         if(BuildConfig.DEBUG){
+            val logging = HttpLoggingInterceptor()
+            .setLevel(HttpLoggingInterceptor.Level.BASIC)
+         return   OkHttpClient.Builder().addInterceptor(logging).build()
+        }
+           return null
+    }
 
     @Provides
     @Singleton
-    fun provideNewsApi(): NewsApi{
+    fun provideNewsApi(okHttpClient: OkHttpClient?): NewsApi{
+
         return NewsApi(
             baseUrl = BuildConfig.NEWS_API_BASE_URL,
-            apiKey = BuildConfig.NEWS_API_KEY
+            apiKey = BuildConfig.NEWS_API_KEY,
+            okHttpClient = okHttpClient
 
         )
     }

@@ -79,6 +79,8 @@ dependencies {
     implementation(project(":database"))
     implementation(project(":news-common"))
 
+    implementation(libs.okhttp.logging.interceptor)
+
 
 
 }
