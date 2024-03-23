@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 
 
+@Suppress("UNREACHABLE_CODE")
 class ArticleRepository @Inject constructor(
     private val database: NewsDatabase,
     private val api: NewsApi,
@@ -73,10 +74,12 @@ class ArticleRepository @Inject constructor(
     }
 
     private fun getAllFromDatabase(): Flow<RequestResult<List<Article>>>{
-        val dbRequest= database.articlesDao::getAll.asFlow()
-            .map { RequestResult.Success(it) }
-            .catch { RequestResult.Error<List<ArticleDBO>>(error = it)
-            logger.e(LOG_TAG,"ERROR getting from database. Reason = $it")
+        val dbRequest = database.articlesDao::getAll.asFlow()
+            .map<List<ArticleDBO>, RequestResult<List<ArticleDBO>>> { RequestResult.Success(it) }
+
+            .catch {
+                logger.e(LOG_TAG,"Error getting from database. Reason: $it")
+                emit(RequestResult.Error<List<ArticleDBO>>(error(it)))
             }
 
 

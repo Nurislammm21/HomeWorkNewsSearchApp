@@ -8,7 +8,7 @@ import java.util.Date
 
 @Entity(tableName = "articles")
 data class ArticleDBO(
-    @Embedded(prefix = "source-")
+    @Embedded
     val source: Source,
     @ColumnInfo("author")
     val author: String,
@@ -30,8 +30,6 @@ data class ArticleDBO(
 
 
 data class Source(
-    @ColumnInfo("id")
     val id: String,
-    @ColumnInfo("name")
     val name: String
 )
