@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.news.main.NewsMainScreen
-import com.example.newssearchapphometask3.ui.theme.NewsSearchAppHomeTask3Theme
+import com.example.news.uikit.NewsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NewsSearchAppHomeTask3Theme {
+           NewsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),

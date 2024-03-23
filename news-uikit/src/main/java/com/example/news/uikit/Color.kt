@@ -1,4 +1,4 @@
-package com.example.newssearchapphometask3.ui.theme
+package com.example.news.uikit
 
 import androidx.compose.ui.graphics.Color
 
