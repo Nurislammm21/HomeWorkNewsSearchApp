@@ -1,17 +1,49 @@
 package com.example.news.data
 
 import com.example.database.models.ArticleDBO
+import com.example.database.models.Source as SourceDBO
 import com.example.news.data.model.Article
+import com.example.news.data.model.Source
 import com.example.newsapi.models.ArticleDTO
 
+
 internal fun ArticleDBO.toArticle(): Article {
-    TODO("NOT implemented")
+    return Article(
+        cacheId = id,
+        source = Source(id = source.id, name = source.name),
+        author = author,
+        title = title,
+        description = description,
+        url = url,
+        urlToImage = urlToImage,
+        publishedAt = publishedAt,
+        content = content
+    )
 }
 
 internal fun ArticleDTO.toArticle(): Article {
-    TODO("NOT implemented")
+    return Article(
+        source = Source(id = source.id, name = source.name),
+        author = author ?: "",
+        title = title,
+        description = description,
+        url = url,
+        urlToImage = urlToImage,
+        publishedAt = publishedAt,
+        content = content
+    )
 }
 
 internal fun ArticleDTO.toArticleDbo(): ArticleDBO{
- TODO("NOT YET IMPLEMENTED")
+    return ArticleDBO(
+        source = SourceDBO(id = source.id, name = source.name),
+        author = author ?: "",
+        title = title,
+        description = description,
+        url = url,
+        urlToImage = urlToImage,
+        publishedAt = publishedAt,
+        content = content,
+        id = 0
+    )
 }
