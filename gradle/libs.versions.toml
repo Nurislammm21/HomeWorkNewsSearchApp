@@ -23,6 +23,7 @@ dagger = "2.50"
 javax-inject = "1"
 okhttp = "4.12.0"
 jakarta-inject = "2.0.1"
+coil = "2.6.0"
 
 [libraries]
 
@@ -76,6 +77,11 @@ okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-intercepto
 
 javax-inject = {module = "javax.inject:javax.inject",version.ref = "javax-inject"}
 jakarta-inject = {module = "jakarta.inject:jakarta.inject-api",version.ref = "jakarta-inject"}
+
+
+coil-core = {module = "io.coil-kt:coil", version.ref = "coil"}
+coil-compose = {module = "io.coil-kt:coil-compose", version.ref = "coil"}
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
