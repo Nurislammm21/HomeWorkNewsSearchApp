@@ -3,8 +3,11 @@ package com.example.news.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,14 +19,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
 import com.example.news.uikit.NewsTheme
 
 @Composable
@@ -111,15 +118,41 @@ private fun ProgressIndicator(state: State.Loading){
  internal fun Article(
     @PreviewParameter(ArticlePreviewProvider::class, limit = 1)article: ArticleUI,
  ) {
-Column(modifier = Modifier.padding(8.dp)){
-    AsyncImage(model = article.imageUrl, contentDescription = stringResource(R.string.content_desc_item_article_image))
-    Text(
-        text = article.title ?: "No TITLE",
-        style = NewsTheme.typography.headlineMedium,
-        maxLines = 1)
-       Spacer(modifier = Modifier.size(4.dp))
-       Text(text = article.description, style = NewsTheme.typography.bodyMedium, maxLines = 3)
-   }
+    Row(Modifier.padding(bottom = 4.dp)){
+        article.imageUrl?.let { imageUrl ->
+            var isImageVisible by  mutableStateOf(true)
+            if(isImageVisible){
+                AsyncImage(
+                    model = imageUrl,
+                    onState = { state ->
+                        if(state is AsyncImagePainter.State.Error ){
+
+                        }
+                    },
+                    contentDescription = stringResource(R.string.content_desc_item_article_image),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.size(150.dp)
+                )
+            }
+
+        }
+
+        Spacer(modifier = Modifier.size(4.dp))
+        Column(modifier = Modifier.padding(8.dp)){
+
+            Text(
+                text = article.title ?: "No TITLE",
+                style = NewsTheme.typography.headlineMedium,
+                maxLines = 1)
+
+            Spacer(modifier = Modifier.size(4.dp))
+
+            Text(text = article.description,
+                style = NewsTheme.typography.bodyMedium,
+                maxLines = 3)
+        }
+    }
+
 }
 
 
