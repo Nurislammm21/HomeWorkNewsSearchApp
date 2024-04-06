@@ -20,6 +20,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -120,7 +121,8 @@ private fun ProgressIndicator(state: State.Loading){
  ) {
     Row(Modifier.padding(bottom = 4.dp)){
         article.imageUrl?.let { imageUrl ->
-            var isImageVisible by  mutableStateOf(true)
+            var isImageVisible by remember { mutableStateOf(true) }
+
             if(isImageVisible){
                 AsyncImage(
                     model = imageUrl,
