@@ -31,6 +31,7 @@ internal class RequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun merge(
         cache: RequestResult.Success<T>,
         server: RequestResult.InProgress<T>
@@ -38,7 +39,7 @@ internal class RequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult
         return RequestResult.InProgress(cache.data)
     }
 
-
+    @Suppress("UNUSED_PARAMETER")
     private fun merge(
         cache: RequestResult.InProgress<T>,
         server: RequestResult.Success<T>
@@ -61,6 +62,7 @@ internal class RequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult
         return RequestResult.Error(data = server.data ?: cache.data, error = server.error)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun merge(
         cache: RequestResult.Error<T>,
         server: RequestResult.InProgress<T>
@@ -68,6 +70,7 @@ internal class RequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult
         return server
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun merge(
         cache: RequestResult.Error<T>,
         server: RequestResult.Success<T>
@@ -75,6 +78,7 @@ internal class RequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult
         return server
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun merge(
         cache: RequestResult.Success<T>,
         server: RequestResult.Success<T>

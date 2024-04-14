@@ -1,5 +1,6 @@
-package com.example.news.uikit
+@file:Suppress("MagicNumber")
 
+package com.example.news.uikit
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
