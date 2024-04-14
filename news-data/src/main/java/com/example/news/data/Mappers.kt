@@ -6,7 +6,6 @@ import com.example.news.data.model.Article
 import com.example.news.data.model.Source
 import com.example.newsapi.models.ArticleDTO
 
-
 internal fun ArticleDBO.toArticle(): Article {
     return Article(
         cacheId = id,

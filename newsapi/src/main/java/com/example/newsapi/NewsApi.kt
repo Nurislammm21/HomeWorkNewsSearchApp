@@ -17,6 +17,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.Date
 
+@Suppress("LongParameterList")
 interface NewsApi {
 
     @GET("everything")
@@ -36,9 +37,8 @@ fun NewsApi(
     baseUrl: String,
     apiKey: String,
     okHttpClient: OkHttpClient? = null,
-    json: Json = Json
 ): NewsApi {
-    return retrofit(baseUrl, apiKey, okHttpClient, json).create()
+    return retrofit(baseUrl, apiKey, okHttpClient).create()
 }
 
 @Suppress("SuspiciousIndentation")
@@ -46,7 +46,7 @@ private fun retrofit(
     baseUrl: String,
     apiKey: String,
     okHttpClient: OkHttpClient? = null,
-    json: Json,
+
 ): Retrofit {
     val jsonConverterFactory = Json.asConverterFactory("application/json".toMediaType())
 

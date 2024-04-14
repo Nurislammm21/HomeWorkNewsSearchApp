@@ -1,11 +1,11 @@
 package com.example.news.data
 
  interface MergeStrategy<E> {
-
     fun merge(right: E, left: E): E
 }
 
 internal class RequestResponseMergeStrategy<T: Any>: MergeStrategy<RequestResult<T>>{
+    @Suppress("CyclomaticComplexMethod")
     override fun merge(right: RequestResult<T>, left: RequestResult<T>): RequestResult<T> {
         return when{
             right is RequestResult.InProgress && left is RequestResult.InProgress -> merge(right,left)

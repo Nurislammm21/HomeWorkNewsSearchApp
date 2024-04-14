@@ -76,8 +76,8 @@ private fun ErrorMessage(state: State.Error) {
         Text(text = "Error during update", color = NewsTheme.colorScheme.onError)
     }
 }
-@Suppress("UNUSED_PARAMETER")
 
+@Suppress("UNUSED_PARAMETER")
 @Composable
 private fun ProgressIndicator(state: State.Loading) {
     Box(
